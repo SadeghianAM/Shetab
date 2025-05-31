@@ -2,6 +2,12 @@ const resultBox = document.getElementById("resultBox");
 
 let binData = [];
 
+// BINهایی که نیاز دارند دقیقاً 8 رقم وارد شود
+const requireFullBin = [
+  "502229", // ویپاد / پاسارگاد
+  "621986", // بلوبانک / سامان
+];
+
 // بارگذاری داده‌ها از فایل JSON
 fetch("./data/bin-data.json")
   .then((res) => res.json())
@@ -16,14 +22,29 @@ fetch("./data/bin-data.json")
 // گوش دادن به event برای بررسی bin
 window.addEventListener("bin-check", (e) => {
   const cleaned = e.detail;
-  const binPart = cleaned.substring(0, 8); // فقط ۸ رقم اول بررسی شود
+  const bin6 = cleaned.substring(0, 6);
+  const bin7 = cleaned.substring(0, 7);
+  const bin8 = cleaned.substring(0, 8);
 
   if (!/^\d{6,16}$/.test(cleaned)) {
     clearResult();
     return;
   }
 
-  const match = binData.find((entry) => binPart.startsWith(entry.bin));
+  const requires8 = requireFullBin.includes(bin6);
+
+  if (requires8) {
+    if (cleaned.length === 6) {
+      showResult("برای تشخیص دقیق‌تر، لطفاً دو رقم دیگر وارد کنید.", "warning");
+      return;
+    } else if (cleaned.length === 7) {
+      showResult("برای تشخیص دقیق‌تر، لطفاً یک رقم دیگر وارد کنید.", "warning");
+      return;
+    }
+    // اگر طول به 8 یا بیشتر رسید، ادامه بده
+  }
+
+  const match = binData.find((entry) => bin8.startsWith(entry.bin));
 
   if (match) {
     showResult(
