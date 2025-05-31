@@ -1,37 +1,28 @@
-const input = document.getElementById("binInput");
 const resultBox = document.getElementById("resultBox");
 
 let binData = [];
 
-// واکشی داده‌ها
+// دریافت داده‌ها
 fetch("./data/bin-data.json")
   .then((res) => res.json())
   .then((data) => {
-    // مرتب‌سازی: طولانی‌ترین BIN اول
-    binData = data.sort((a, b) => b.bin.length - a.bin.length);
+    binData = data.sort((a, b) => b.bin.length - a.bin.length); // مرتب‌سازی براساس طول BIN
   })
   .catch((err) => {
     showResult("خطا در بارگذاری اطلاعات بانکی", "error");
     console.error(err);
   });
 
-// بررسی هنگام تایپ
-input.addEventListener("input", () => {
-  const value = input.value.trim();
+// شنیدن event سفارشی از ورودی
+window.addEventListener("bin-check", (e) => {
+  const cleaned = e.detail;
 
-  // پاک کردن نتیجه در حین تایپ
-  if (value.length < 6) {
+  if (!/^\d{6,8}$/.test(cleaned)) {
     clearResult();
     return;
   }
 
-  if (!/^\d{6,8}$/.test(value)) {
-    showResult("لطفاً فقط عدد وارد کنید (۶ تا ۸ رقم)", "error");
-    return;
-  }
-
-  // پیدا کردن دقیق‌ترین تطابق از لیست BINها
-  const match = binData.find((entry) => value.startsWith(entry.bin));
+  const match = binData.find((entry) => cleaned.startsWith(entry.bin));
 
   if (match) {
     showResult(
@@ -45,7 +36,7 @@ input.addEventListener("input", () => {
   }
 });
 
-// نمایش نتیجه با استایل و لوگو
+// نمایش نتیجه
 function showResult(message, type, logoName = null, bankName = null) {
   resultBox.className = `result ${type}`;
   resultBox.style.display = "block";
@@ -76,9 +67,10 @@ function clearResult() {
   resultBox.style.display = "none";
 }
 
-// پاک کردن فرم
+// دکمه پاک کردن فرم
 function clearForm() {
+  const input = document.getElementById("binInput");
   input.value = "";
-  clearResult();
   input.focus();
+  clearResult();
 }
