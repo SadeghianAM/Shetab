@@ -32,7 +32,7 @@
       header {
         background-color: #2c3e50;
         color: white;
-        padding: 2rem 2rem;
+        padding: 2rem;
         text-align: center;
       }
 
@@ -48,11 +48,9 @@
         flex-grow: 1;
       }
 
-      .card {
-        background-color: white;
-        border-radius: 0.75rem;
-        padding: 2rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      .form-wrapper {
+        padding: 1rem 0;
+        min-height: 320px;
       }
 
       label {
@@ -162,13 +160,13 @@
     </header>
 
     <main>
-      <div class="card">
-        <label for="binInput">۶ رقم اول شماره کارت:</label>
+      <div class="form-wrapper">
+        <label for="binInput">۶ تا ۸ رقم اول شماره کارت:</label>
         <input
           type="text"
           id="binInput"
-          maxlength="6"
-          placeholder="مثلاً 603799"
+          maxlength="8"
+          placeholder="مثلاً 50222915"
         />
         <div class="result" id="resultBox"></div>
         <button class="clear-button" onclick="clearForm()">پاک کردن فرم</button>

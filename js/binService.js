@@ -1,12 +1,15 @@
 const input = document.getElementById("binInput");
 const resultBox = document.getElementById("resultBox");
 
-let binData = null;
+let binData = [];
 
-// بارگذاری داده‌ها فقط یک‌بار
+// واکشی داده‌ها
 fetch("./data/bin-data.json")
   .then((res) => res.json())
-  .then((data) => (binData = data))
+  .then((data) => {
+    // مرتب‌سازی: طولانی‌ترین BIN اول
+    binData = data.sort((a, b) => b.bin.length - a.bin.length);
+  })
   .catch((err) => {
     showResult("خطا در بارگذاری اطلاعات بانکی", "error");
     console.error(err);
@@ -16,32 +19,33 @@ fetch("./data/bin-data.json")
 input.addEventListener("input", () => {
   const value = input.value.trim();
 
+  // پاک کردن نتیجه در حین تایپ
   if (value.length < 6) {
     clearResult();
     return;
   }
 
-  if (!/^\d{6}$/.test(value)) {
-    showResult("لطفاً فقط عدد وارد کنید (۶ رقم)", "error");
+  if (!/^\d{6,8}$/.test(value)) {
+    showResult("لطفاً فقط عدد وارد کنید (۶ تا ۸ رقم)", "error");
     return;
   }
 
-  if (binData) {
-    const bank = binData[value];
-    if (bank) {
-      showResult(
-        `این کارت متعلق به ${bank.name} است.`,
-        "success",
-        bank.logo,
-        bank.name
-      );
-    } else {
-      showResult("بانکی با این شماره پیدا نشد.", "warning");
-    }
+  // پیدا کردن دقیق‌ترین تطابق از لیست BINها
+  const match = binData.find((entry) => value.startsWith(entry.bin));
+
+  if (match) {
+    showResult(
+      `این کارت متعلق به ${match.name} است.`,
+      "success",
+      match.logo,
+      match.name
+    );
+  } else {
+    showResult("بانکی با این شماره پیدا نشد.", "warning");
   }
 });
 
-// نمایش نتیجه با استایل و لوگو و نام فارسی
+// نمایش نتیجه با استایل و لوگو
 function showResult(message, type, logoName = null, bankName = null) {
   resultBox.className = `result ${type}`;
   resultBox.style.display = "block";
