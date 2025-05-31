@@ -1,103 +1,117 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>شتاب - داشبورد خدمات بانکی<</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>شتاب - داشبورد خدمات بانکی</title>
 
-    <link rel="stylesheet" href="./css/layout.css" />
+  <link rel="stylesheet" href="./css/layout.css" />
 
-    <style>
-      @font-face {
-        font-family: "Vazirmatn";
-        src: url("./assets/fonts/Vazirmatn[wght].ttf") format("truetype");
-        font-weight: 100 900;
-      }
+  <style>
+    @font-face {
+      font-family: "Vazirmatn";
+      src: url("./assets/fonts/Vazirmatn[wght].ttf") format("truetype");
+      font-weight: 100 900;
+    }
 
-      *,
-      *::before,
-      *::after {
-        font-family: "Vazirmatn", sans-serif !important;
-        box-sizing: border-box;
-      }
+    *,
+    *::before,
+    *::after {
+      font-family: "Vazirmatn", sans-serif !important;
+      box-sizing: border-box;
+    }
 
-      body {
-        background-color: #f0f4f8;
-        margin: 0;
-        padding: 0;
-        direction: rtl;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-      }
+    body {
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
+    main {
+      flex-grow: 1;
+      padding: 1.5rem;
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      overflow-y: auto;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      color: #1e3a8a;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      background-color: #ffffff;
+      border-radius: 0.75rem;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border-right: 4px solid #0077b6;
+      transition: all 0.25s ease-in-out;
+    }
+
+    li:hover {
+      transform: translateY(-3px);
+      border-right-color: #00b4d8;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    a {
+      text-decoration: none;
+      color: #0077b6;
+      font-weight: 600;
+      font-size: 1.1rem;
+      display: block;
+    }
+
+    a:hover {
+      color: #023e8a;
+    }
+
+    /* 📱 بهینه‌سازی برای موبایل */
+    @media (max-width: 480px) {
       main {
-        flex-grow: 1;
-        padding: 2rem;
-        max-width: 800px;
-        width: 95%;
-        margin: 0 auto;
-        overflow-y: auto;
-      }
-
-      h2 {
-        font-size: 1.3rem;
-        margin-bottom: 1.5rem;
-        color: #1e3a8a;
-        text-align: center;
-        font-weight: 700;
-      }
-
-      ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      li {
-        background-color: #ffffff;
-        border-radius: 0.75rem;
-        padding: 1.2rem 1.5rem;
-        margin-bottom: 1.2rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        border-right: 4px solid #0077b6;
-        transition: all 0.25s ease-in-out;
-      }
-
-      li:hover {
-        transform: translateY(-3px);
-        border-right-color: #00b4d8;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
       }
 
       a {
-        text-decoration: none;
-        color: #0077b6;
-        font-weight: 600;
-        font-size: 1.1rem;
-        display: block;
+        font-size: 1rem;
       }
 
-      a:hover {
-        color: #023e8a;
+      li {
+        padding: 1rem 1.2rem;
       }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>شتاب - داشبورد خدمات بانکی</h1>
-    </header>
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>شتاب - داشبورد خدمات بانکی</h1>
+  </header>
 
-    <main>
-      <h2>لیست خدمات</h2>
-      <ul>
-        <li><a href="bin-lookup.html">🔍 تشخیص نام بانک از شماره کارت</a></li>
-      </ul>
-    </main>
+  <main>
+    <h2>لیست خدمات</h2>
+    <ul>
+      <li><a href="bin-lookup.html">🔍 تشخیص نام بانک از شماره کارت</a></li>
+    </ul>
+  </main>
 
-    <footer>
-      <p>© ۱۴۰۴ شتاب | تمامی حقوق محفوظ است.</p>
-    </footer>
-  </body>
+  <footer>
+    <p>© ۱۴۰۴ شتاب | تمامی حقوق محفوظ است.</p>
+  </footer>
+</body>
 </html>
