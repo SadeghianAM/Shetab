@@ -38,6 +38,7 @@
       main {
         flex-grow: 1;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         padding: 1rem;
@@ -150,11 +151,29 @@
         color: #1e3a8a;
       }
 
-      @media (max-width: 480px) {
-        main {
-          padding: 1rem;
-        }
+      .inline-feedback {
+        margin-top: 2rem;
+        background-color: #e0f2fe;
+        color: #0c4a6e;
+        padding: 0.8rem 1.25rem;
+        border-radius: 0.75rem;
+        font-size: 0.95rem;
+        text-align: center;
+        line-height: 1.7;
+      }
 
+      .inline-feedback a {
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: bold;
+        margin-right: 0.4rem;
+      }
+
+      .inline-feedback a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 480px) {
         input {
           font-size: 1rem;
           padding: 0.9rem;
@@ -164,17 +183,22 @@
           font-size: 1rem;
           padding: 0.9rem;
         }
+
+        .inline-feedback {
+          font-size: 0.9rem;
+          padding: 0.75rem;
+        }
       }
     </style>
   </head>
   <body>
     <header>
-      <h1>تشخیص نام بانک از شماره کارت</h1>
+      <h1>🔍 تشخیص بانک صادرکننده کارت</h1>
     </header>
 
     <main>
       <div class="form-wrapper">
-        <label for="binInput">شماره کارت (تا ۱۶ رقم):</label>
+        <label for="binInput">💳 شماره کارت (تا ۱۶ رقم):</label>
         <input
           type="text"
           id="binInput"
@@ -184,7 +208,15 @@
         />
         <div class="result" id="resultBox"></div>
         <button class="clear-button" onclick="clearForm()">پاک کردن فرم</button>
-        <a href="index.html" class="back-link">← بازگشت به صفحه اصلی</a>
+        <a href="index.html" class="back-link">🏠 بازگشت به صفحه اصلی</a>
+
+        <!-- 💬 نوار بازخورد داخل فرم -->
+        <div class="inline-feedback">
+          💬 مشکلی دیدی یا پیشنهادی داری؟
+          <a href="https://t.me/SADEGHIAN83" target="_blank" rel="noopener"
+            >بهم بگو</a
+          >
+        </div>
       </div>
     </main>
 
