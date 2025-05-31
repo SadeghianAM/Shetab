@@ -1,181 +1,191 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>تشخیص بانک از شماره کارت</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تشخیص بانک از شماره کارت</title>
 
-    <!-- فایل استایل هدر و فوتر -->
-    <link rel="stylesheet" href="./css/layout.css" />
+  <link rel="stylesheet" href="./css/layout.css">
 
-    <style>
-      *,
-      *::before,
-      *::after {
-        font-family: "Vazirmatn", sans-serif !important;
-        box-sizing: border-box;
+  <style>
+    @font-face {
+      font-family: 'Vazirmatn';
+      src: url('./assets/fonts/Vazirmatn[wght].ttf') format('truetype');
+      font-weight: 100 900;
+    }
+
+    *, *::before, *::after {
+      font-family: 'Vazirmatn', sans-serif !important;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 600px;
+      width: 90%;
+      margin: 0 auto;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow-y: auto;
+    }
+
+    .form-wrapper {
+      background-color: #ffffff;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.7rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #1e3a8a;
+    }
+
+    input {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.2rem;
+      border: 2px solid #ced4da;
+      border-radius: 0.75rem;
+      margin-bottom: 1.5rem;
+      direction: ltr;
+      text-align: center;
+      letter-spacing: 2px;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: #adb5bd;
+      font-size: 1rem;
+      letter-spacing: normal;
+    }
+
+    .result {
+      margin-top: 1rem;
+      padding: 1rem 1.5rem;
+      border-radius: 0.75rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-align: center;
+      display: none;
+      transition: all 0.3s ease;
+    }
+
+    .result.success {
+      background-color: #e6f4f1;
+      color: #157347;
+      border: 1px solid #157347;
+    }
+
+    .result.error {
+      background-color: #fae3e3;
+      color: #c0392b;
+      border: 1px solid #c0392b;
+    }
+
+    .result.warning {
+      background-color: #fff6d9;
+      color: #b9770e;
+      border: 1px solid #b9770e;
+    }
+
+    .result img {
+      vertical-align: middle;
+      width: 24px;
+      height: 24px;
+      margin-left: 0.5rem;
+    }
+
+    .clear-button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 1rem;
+      background-color: #2563eb;
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 1.1rem;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .clear-button:hover {
+      background-color: #1d4ed8;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 2rem;
+      text-align: center;
+      color: #2563eb;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+      color: #1e3a8a;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>تشخیص بانک از شماره کارت</h1>
+  </header>
+
+  <main>
+    <div class="form-wrapper">
+      <label for="binInput">شماره کارت (تا ۱۶ رقم):</label>
+      <input type="text" id="binInput" maxlength="19" placeholder="مثلاً 5022 2915 1234 5678" />
+      <div class="result" id="resultBox"></div>
+      <button class="clear-button" onclick="clearForm()">پاک کردن فرم</button>
+      <a href="index.html" class="back-link">← بازگشت به داشبورد</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 شتاب | تمامی حقوق محفوظ است.</p>
+  </footer>
+
+  <script>
+    const input = document.getElementById("binInput");
+
+    input.addEventListener("input", (e) => {
+      const rawValue = e.target.value.replace(/\D/g, "").substring(0, 16);
+      const groups = rawValue.match(/.{1,4}/g) || [];
+      e.target.value = groups.join(" ");
+      const cleaned = rawValue;
+      if (cleaned.length >= 6) {
+        const event = new CustomEvent("bin-check", { detail: cleaned });
+        window.dispatchEvent(event);
+      } else {
+        clearResult();
       }
+    });
+  </script>
 
-      body {
-        background-color: #f8f9fa;
-        margin: 0;
-        padding: 0;
-        direction: rtl;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-      }
-
-      main {
-        padding: 2rem;
-        max-width: 800px;
-        width: 95%;
-        margin: 0 auto;
-        flex-grow: 1;
-      }
-
-      .form-wrapper {
-        padding: 1rem 0;
-        min-height: 320px;
-      }
-
-      label {
-        display: block;
-        margin-bottom: 0.7rem;
-        font-weight: 600;
-        font-size: 1.1rem;
-      }
-
-      input {
-        width: 100%;
-        padding: 1rem;
-        font-size: 1.2rem;
-        border: 2px solid #ced4da;
-        border-radius: 0.6rem;
-        margin-bottom: 1.5rem;
-        direction: ltr;
-        text-align: center;
-        letter-spacing: 2px;
-      }
-
-      input:focus {
-        border-color: #3498db;
-        outline: none;
-      }
-
-      input::placeholder {
-        color: #999;
-        font-size: 1rem;
-        letter-spacing: normal;
-      }
-
-      .result {
-        margin-top: 1rem;
-        padding: 1.2rem;
-        border-radius: 0.6rem;
-        font-weight: bold;
-        font-size: 1.2rem;
-        text-align: center;
-        display: none;
-      }
-
-      .result.success {
-        background-color: #e8f8f5;
-        color: #1e8449;
-        border: 1px solid #1e8449;
-      }
-
-      .result.error {
-        background-color: #fdecea;
-        color: #c0392b;
-        border: 1px solid #c0392b;
-      }
-
-      .result.warning {
-        background-color: #fff3cd;
-        color: #b9770e;
-        border: 1px solid #b9770e;
-      }
-
-      .result img {
-        vertical-align: middle;
-        width: 26px;
-        height: 26px;
-        margin-left: 0.6rem;
-      }
-
-      .clear-button {
-        margin-top: 1rem;
-        width: 100%;
-        padding: 1rem;
-        background-color: #dcdcdc;
-        border: none;
-        border-radius: 0.6rem;
-        font-size: 1.1rem;
-        color: #333;
-        cursor: pointer;
-      }
-
-      .clear-button:hover {
-        background-color: #bfbfbf;
-      }
-
-      .back-link {
-        display: block;
-        margin-top: 2rem;
-        text-align: center;
-        color: #2980b9;
-        text-decoration: none;
-        font-size: 1rem;
-      }
-
-      .back-link:hover {
-        text-decoration: underline;
-        color: #1a5276;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>تشخیص بانک از شماره کارت</h1>
-    </header>
-
-    <main>
-      <div class="form-wrapper">
-        <label for="binInput">شماره کارت (تا ۱۶ رقم):</label>
-        <input
-          type="text"
-          id="binInput"
-          maxlength="19"
-          placeholder="مثلاً 5022 2915 1234 5678"
-        />
-        <div class="result" id="resultBox"></div>
-        <button class="clear-button" onclick="clearForm()">پاک کردن فرم</button>
-        <a href="index.html" class="back-link">← بازگشت به داشبورد</a>
-      </div>
-    </main>
-
-    <footer>
-      <p>© 2025 شتاب | تمامی حقوق محفوظ است.</p>
-    </footer>
-
-    <script>
-      const input = document.getElementById("binInput");
-
-      input.addEventListener("input", (e) => {
-        const rawValue = e.target.value.replace(/\D/g, "").substring(0, 16);
-        const groups = rawValue.match(/.{1,4}/g) || [];
-        e.target.value = groups.join(" ");
-        const cleaned = rawValue;
-        if (cleaned.length >= 6) {
-          const event = new CustomEvent("bin-check", { detail: cleaned });
-          window.dispatchEvent(event);
-        } else {
-          clearResult();
-        }
-      });
-    </script>
-
-    <script src="./js/binService.js"></script>
-  </body>
+  <script src="./js/binService.js"></script>
+</body>
 </html>

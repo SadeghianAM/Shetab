@@ -2,27 +2,28 @@ const resultBox = document.getElementById("resultBox");
 
 let binData = [];
 
-// دریافت داده‌ها
+// بارگذاری داده‌ها از فایل JSON
 fetch("./data/bin-data.json")
   .then((res) => res.json())
   .then((data) => {
-    binData = data.sort((a, b) => b.bin.length - a.bin.length); // مرتب‌سازی براساس طول BIN
+    binData = data.sort((a, b) => b.bin.length - a.bin.length); // مرتب‌سازی از طولانی به کوتاه
   })
   .catch((err) => {
     showResult("خطا در بارگذاری اطلاعات بانکی", "error");
     console.error(err);
   });
 
-// شنیدن event سفارشی از ورودی
+// گوش دادن به event برای بررسی bin
 window.addEventListener("bin-check", (e) => {
   const cleaned = e.detail;
+  const binPart = cleaned.substring(0, 8); // فقط ۸ رقم اول بررسی شود
 
-  if (!/^\d{6,8}$/.test(cleaned)) {
+  if (!/^\d{6,16}$/.test(cleaned)) {
     clearResult();
     return;
   }
 
-  const match = binData.find((entry) => cleaned.startsWith(entry.bin));
+  const match = binData.find((entry) => binPart.startsWith(entry.bin));
 
   if (match) {
     showResult(
@@ -60,7 +61,7 @@ function showResult(message, type, logoName = null, bankName = null) {
   }
 }
 
-// پاک کردن پیام
+// پاک‌کردن پیام
 function clearResult() {
   resultBox.textContent = "";
   resultBox.className = "result";

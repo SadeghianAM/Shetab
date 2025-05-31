@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>شتاب | داشبورد خدمات</title>
 
-    <!-- استایل هدر و فوتر -->
     <link rel="stylesheet" href="./css/layout.css" />
 
     <style>
@@ -23,13 +22,14 @@
       }
 
       body {
-        background-color: #f8f9fa;
+        background-color: #f0f4f8;
         margin: 0;
         padding: 0;
         direction: rtl;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
+        overflow: hidden;
       }
 
       main {
@@ -38,13 +38,15 @@
         max-width: 800px;
         width: 95%;
         margin: 0 auto;
+        overflow-y: auto;
       }
 
       h2 {
         font-size: 1.3rem;
-        margin-bottom: 1rem;
-        color: #2c3e50;
+        margin-bottom: 1.5rem;
+        color: #1e3a8a;
         text-align: center;
+        font-weight: 700;
       }
 
       ul {
@@ -54,29 +56,31 @@
       }
 
       li {
-        background-color: white;
+        background-color: #ffffff;
         border-radius: 0.75rem;
-        padding: 1rem 1.5rem;
-        margin-bottom: 1rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-        transition: transform 0.2s, box-shadow 0.2s;
+        padding: 1.2rem 1.5rem;
+        margin-bottom: 1.2rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        border-right: 4px solid #0077b6;
+        transition: all 0.25s ease-in-out;
       }
 
       li:hover {
         transform: translateY(-3px);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        border-right-color: #00b4d8;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
       }
 
       a {
         text-decoration: none;
-        color: #2980b9;
-        font-weight: 500;
+        color: #0077b6;
+        font-weight: 600;
         font-size: 1.1rem;
         display: block;
       }
 
       a:hover {
-        color: #1a5276;
+        color: #023e8a;
       }
     </style>
   </head>
