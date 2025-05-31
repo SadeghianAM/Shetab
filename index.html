@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>شتاب | داشبورد خدمات</title>
+
+    <style>
+      @font-face {
+        font-family: "Vazirmatn";
+        src: url("./assets/fonts/Vazirmatn[wght].ttf") format("truetype");
+        font-weight: 100 900;
+      }
+
+      *,
+      *::before,
+      *::after {
+        font-family: "Vazirmatn", sans-serif !important;
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+        direction: rtl;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        background-color: #2c3e50;
+        color: white;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      header h1 {
+        font-size: 1.8rem;
+        margin: 0;
+      }
+
+      main {
+        flex-grow: 1;
+        padding: 2rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+        text-align: center;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      li {
+        background-color: white;
+        border-radius: 0.75rem;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      li:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      }
+
+      a {
+        text-decoration: none;
+        color: #2980b9;
+        font-weight: 500;
+        font-size: 1.1rem;
+        display: block;
+      }
+
+      a:hover {
+        color: #1a5276;
+      }
+
+      footer {
+        background-color: #2c3e50;
+        color: #f0f0f0;
+        text-align: center;
+        padding: 1rem;
+        font-size: 0.9rem;
+        border-top: 1px solid #1c2833;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>شتاب - داشبورد خدمات بانکی</h1>
+    </header>
+
+    <main>
+      <h2>لیست خدمات</h2>
+      <ul>
+        <li><a href="bin-lookup.html">🔍 تشخیص بانک از شماره کارت</a></li>
+        <!-- خدمات بعدی در اینجا اضافه می‌شن -->
+        <!-- <li><a href="#">💳 استعلام موجودی</a></li> -->
+      </ul>
+    </main>
+
+    <footer>© 2025 شتاب | تمامی حقوق محفوظ است.</footer>
+  </body>
+</html>
