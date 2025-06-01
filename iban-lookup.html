@@ -217,8 +217,6 @@
 
     <div id="footer-placeholder"></div>
 
-    <script src="./js/ibanService.js"></script>
-
     <script>
       fetch("footer.html")
         .then((res) => res.text())
@@ -226,5 +224,7 @@
           document.getElementById("footer-placeholder").innerHTML = data;
         });
     </script>
+
+    <script src="./js/ibanService.js"></script>
   </body>
 </html>

@@ -31,10 +31,6 @@
         flex-direction: column;
       }
 
-      header {
-        flex-shrink: 0;
-      }
-
       main {
         flex-grow: 1;
         display: flex;
@@ -60,24 +56,18 @@
       input {
         width: 100%;
         padding: 1rem;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         border: 2px solid #ced4da;
         border-radius: 0.75rem;
         direction: ltr;
-        text-align: center;
-        letter-spacing: 2px;
+        text-align: left;
+        letter-spacing: 1px;
         transition: border-color 0.3s ease;
       }
 
       input:focus {
         border-color: #2563eb;
         outline: none;
-      }
-
-      input::placeholder {
-        color: #adb5bd;
-        font-size: 1rem;
-        letter-spacing: normal;
       }
 
       .result {
@@ -202,6 +192,7 @@
       }
     </style>
   </head>
+
   <body>
     <header>
       <h1>🔍 تشخیص بانک صادرکننده کارت</h1>
@@ -218,14 +209,16 @@
           placeholder="5022 2910 1234 5678"
         />
         <div class="result" id="resultBox"></div>
+        <div class="result" id="validationBox"></div>
+
         <button class="clear-button" onclick="clearForm()">پاک کردن فرم</button>
         <a href="index.html" class="back-link">🏠 بازگشت به صفحه اصلی</a>
 
         <div class="inline-feedback">
           💬 مشکلی دیدی یا پیشنهادی داری؟
-          <a href="https://t.me/SADEGHIAN83" target="_blank" rel="noopener"
-            >بهم بگو</a
-          >
+          <a href="https://t.me/SADEGHIAN83" target="_blank" rel="noopener">
+            بهم بگو
+          </a>
         </div>
       </div>
     </main>
@@ -240,11 +233,13 @@
         const groups = rawValue.match(/.{1,4}/g) || [];
         e.target.value = groups.join(" ");
         const cleaned = rawValue;
+
         if (cleaned.length >= 6) {
           const event = new CustomEvent("bin-check", { detail: cleaned });
           window.dispatchEvent(event);
         } else {
-          clearResult();
+          const clearEvent = new CustomEvent("clear-both");
+          window.dispatchEvent(clearEvent);
         }
       });
 
