@@ -10,7 +10,6 @@
 
     <style>
       /* فقط استایل‌های مخصوص بخش میانی (main) و فرم */
-
       * {
         font-family: "Vazirmatn", sans-serif !important;
         box-sizing: border-box;
@@ -172,6 +171,7 @@
       }
     </style>
   </head>
+
   <body>
     <header>
       <h1>🔍 تشخیص بانک از شماره شبا</h1>
@@ -179,8 +179,9 @@
 
     <main>
       <div class="form-wrapper">
-        <label for="ibanInput">🏦 شماره شبا (مثال: IR820540102680020817909002)</label>
-        <!-- مقدار پیش‌فرض IR و فعال کردن وارد کردن باقی شماره -->
+        <label for="ibanInput"
+          >🏦 شماره شبا (مثال: IR820540102680020817909002)</label
+        >
         <input
           type="text"
           id="ibanInput"
@@ -190,12 +191,15 @@
           inputmode="text"
         />
         <div class="result" id="resultBox"></div>
+        <div class="result" id="ibanValidationBox"></div>
         <button class="clear-button" onclick="clearForm()">پاک کردن فرم</button>
         <a href="index.html" class="back-link">🏠 بازگشت به صفحه اصلی</a>
 
         <div class="inline-feedback">
           💬 مشکلی دیدی یا پیشنهادی داری؟
-          <a href="https://t.me/SADEGHIAN83" target="_blank" rel="noopener">بهم بگو</a>
+          <a href="https://t.me/SADEGHIAN83" target="_blank" rel="noopener"
+            >بهم بگو</a
+          >
         </div>
       </div>
     </main>
@@ -204,37 +208,6 @@
       <p>Shetab - Ver 2.0.0</p>
     </footer>
 
-    <script>
-      const input = document.getElementById("ibanInput");
-
-      // برای جلوگیری از تایپ مجدد "IR" در اول
-      input.addEventListener("input", (e) => {
-        const value = e.target.value
-          .toUpperCase()
-          .replace(/\s+/g, "")
-          .replace(/[^A-Z0-9]/g, "");
-
-        // مقدار IR همیشه در ابتدای ورودی باشد
-        e.target.value = "IR" + value.slice(2);
-
-        if (e.target.value.length >= 10) {
-          const event = new CustomEvent("iban-check", { detail: e.target.value });
-          window.dispatchEvent(event);
-        } else {
-          clearResult();
-        }
-      });
-
-      // برای حذف "IR" در صورت paste کردن
-      input.addEventListener("paste", (e) => {
-        let pastedValue = e.clipboardData.getData("text");
-        if (pastedValue.startsWith("IR")) {
-          pastedValue = pastedValue.slice(2); // حذف "IR" در صورت paste
-        }
-        // پس از حذف IR در صورت paste، شماره شبای صحیح در ورودی قرار می‌گیرد
-        input.value = "IR" + pastedValue;
-      });
-    </script>
     <script src="./js/ibanService.js"></script>
   </body>
 </html>
