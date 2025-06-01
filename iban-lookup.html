@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>تشخیص بانک از شماره شبا</title>
 
-    <!-- استایل عمومی هدر/فوتر -->
     <link rel="stylesheet" href="./css/layout.css" />
 
     <style>
-      /* فقط استایل‌های مخصوص بخش میانی (main) و فرم */
       * {
         font-family: "Vazirmatn", sans-serif !important;
         box-sizing: border-box;
@@ -169,6 +167,21 @@
           padding: 0.75rem;
         }
       }
+
+      footer {
+        background: linear-gradient(90deg, #0f172a, #1e3a8a);
+        color: #e0e7ff;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      footer p {
+        margin: 0;
+      }
     </style>
   </head>
 
@@ -179,9 +192,7 @@
 
     <main>
       <div class="form-wrapper">
-        <label for="ibanInput"
-          >🏦 شماره شبا (حداقل ۶ رقم اول):</label
-        >
+        <label for="ibanInput">🏦 شماره شبا (حداقل ۶ رقم اول):</label>
         <input
           type="text"
           id="ibanInput"
@@ -204,10 +215,16 @@
       </div>
     </main>
 
-    <footer>
-      <p>Shetab - Ver 2.0.0</p>
-    </footer>
+    <div id="footer-placeholder"></div>
 
     <script src="./js/ibanService.js"></script>
+
+    <script>
+      fetch("footer.html")
+        .then((res) => res.text())
+        .then((data) => {
+          document.getElementById("footer-placeholder").innerHTML = data;
+        });
+    </script>
   </body>
 </html>

@@ -44,10 +44,6 @@
         padding: 1rem;
       }
 
-      footer {
-        flex-shrink: 0;
-      }
-
       .form-wrapper {
         width: 100%;
         max-width: 480px;
@@ -189,6 +185,21 @@
           padding: 0.75rem;
         }
       }
+
+      footer {
+        background: linear-gradient(90deg, #0f172a, #1e3a8a);
+        color: #e0e7ff;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      footer p {
+        margin: 0;
+      }
     </style>
   </head>
   <body>
@@ -210,7 +221,6 @@
         <button class="clear-button" onclick="clearForm()">پاک کردن فرم</button>
         <a href="index.html" class="back-link">🏠 بازگشت به صفحه اصلی</a>
 
-        <!-- 💬 نوار بازخورد داخل فرم -->
         <div class="inline-feedback">
           💬 مشکلی دیدی یا پیشنهادی داری؟
           <a href="https://t.me/SADEGHIAN83" target="_blank" rel="noopener"
@@ -220,9 +230,7 @@
       </div>
     </main>
 
-    <footer>
-      <p>Shetab - Ver 1.0.1</p>
-    </footer>
+    <div id="footer-placeholder"></div>
 
     <script>
       const input = document.getElementById("binInput");
@@ -239,6 +247,12 @@
           clearResult();
         }
       });
+
+      fetch("footer.html")
+        .then((res) => res.text())
+        .then((data) => {
+          document.getElementById("footer-placeholder").innerHTML = data;
+        });
     </script>
 
     <script src="./js/binService.js"></script>
