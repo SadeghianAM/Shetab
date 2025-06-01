@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تشخیص بانک از شماره شبا</title>
+
+    <!-- استایل عمومی هدر/فوتر -->
+    <link rel="stylesheet" href="./css/layout.css" />
+
+    <style>
+      /* فقط استایل‌های مخصوص بخش میانی (main) و فرم */
+
+      * {
+        font-family: "Vazirmatn", sans-serif !important;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #f0f4f8;
+        margin: 0;
+        padding: 0;
+        direction: rtl;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      main {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+
+      .form-wrapper {
+        width: 100%;
+        max-width: 480px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.7rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: #1e3a8a;
+      }
+
+      input {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.1rem;
+        border: 2px solid #ced4da;
+        border-radius: 0.75rem;
+        direction: ltr;
+        text-align: left;
+        letter-spacing: 1px;
+        transition: border-color 0.3s ease;
+      }
+
+      input:focus {
+        border-color: #2563eb;
+        outline: none;
+      }
+
+      .result {
+        margin-top: 1rem;
+        padding: 1rem 1.5rem;
+        border-radius: 0.75rem;
+        font-weight: bold;
+        font-size: 1.1rem;
+        text-align: center;
+        display: none;
+        transition: all 0.3s ease;
+      }
+
+      .result.success {
+        background-color: #e6f4f1;
+        color: #157347;
+        border: 1px solid #157347;
+      }
+
+      .result.error {
+        background-color: #fae3e3;
+        color: #c0392b;
+        border: 1px solid #c0392b;
+      }
+
+      .result.warning {
+        background-color: #fff6d9;
+        color: #b9770e;
+        border: 1px solid #b9770e;
+      }
+
+      .result img {
+        vertical-align: middle;
+        width: 24px;
+        height: 24px;
+        margin-left: 5px;
+      }
+
+      .clear-button {
+        margin-top: 1.5rem;
+        width: 100%;
+        padding: 1rem;
+        background-color: #2563eb;
+        border: none;
+        border-radius: 0.75rem;
+        font-size: 1.1rem;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .clear-button:hover {
+        background-color: #1d4ed8;
+      }
+
+      .back-link {
+        display: block;
+        margin-top: 2rem;
+        text-align: center;
+        color: #2563eb;
+        text-decoration: none;
+        font-size: 1rem;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+        color: #1e3a8a;
+      }
+
+      .inline-feedback {
+        margin-top: 2rem;
+        background-color: #e0f2fe;
+        color: #0c4a6e;
+        padding: 0.8rem 1.25rem;
+        border-radius: 0.75rem;
+        font-size: 0.95rem;
+        text-align: center;
+        line-height: 1.7;
+      }
+
+      .inline-feedback a {
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: bold;
+        margin-right: 0.4rem;
+      }
+
+      .inline-feedback a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 480px) {
+        input {
+          font-size: 1rem;
+          padding: 0.9rem;
+        }
+
+        .clear-button {
+          font-size: 1rem;
+          padding: 0.9rem;
+        }
+
+        .inline-feedback {
+          font-size: 0.9rem;
+          padding: 0.75rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>🔍 تشخیص بانک از شماره شبا</h1>
+    </header>
+
+    <main>
+      <div class="form-wrapper">
+        <label for="ibanInput">🏦 شماره شبا (مثال: IR820540102680020817909002)</label>
+        <!-- مقدار پیش‌فرض IR و فعال کردن وارد کردن باقی شماره -->
+        <input
+          type="text"
+          id="ibanInput"
+          maxlength="26"
+          value="IR"
+          placeholder="IRxxxxxxxxxxxxxxxxxxxxxx"
+          inputmode="text"
+        />
+        <div class="result" id="resultBox"></div>
+        <button class="clear-button" onclick="clearForm()">پاک کردن فرم</button>
+        <a href="index.html" class="back-link">🏠 بازگشت به صفحه اصلی</a>
+
+        <div class="inline-feedback">
+          💬 مشکلی دیدی یا پیشنهادی داری؟
+          <a href="https://t.me/SADEGHIAN83" target="_blank" rel="noopener">بهم بگو</a>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>Shetab - Ver 2.0.0</p>
+    </footer>
+
+    <script>
+      const input = document.getElementById("ibanInput");
+
+      // برای جلوگیری از تایپ مجدد "IR" در اول
+      input.addEventListener("input", (e) => {
+        const value = e.target.value
+          .toUpperCase()
+          .replace(/\s+/g, "")
+          .replace(/[^A-Z0-9]/g, "");
+
+        // مقدار IR همیشه در ابتدای ورودی باشد
+        e.target.value = "IR" + value.slice(2);
+
+        if (e.target.value.length >= 10) {
+          const event = new CustomEvent("iban-check", { detail: e.target.value });
+          window.dispatchEvent(event);
+        } else {
+          clearResult();
+        }
+      });
+
+      // برای حذف "IR" در صورت paste کردن
+      input.addEventListener("paste", (e) => {
+        let pastedValue = e.clipboardData.getData("text");
+        if (pastedValue.startsWith("IR")) {
+          pastedValue = pastedValue.slice(2); // حذف "IR" در صورت paste
+        }
+        // پس از حذف IR در صورت paste، شماره شبای صحیح در ورودی قرار می‌گیرد
+        input.value = "IR" + pastedValue;
+      });
+    </script>
+    <script src="./js/ibanService.js"></script>
+  </body>
+</html>
