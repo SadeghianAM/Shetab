@@ -27,7 +27,7 @@
   { "bin": "504172", "name": "بانک قرض‌الحسنه رسالت", "logo": "Resalat" },
   { "bin": "606373", "name": "بانک قرض‌الحسنه مهر ایران", "logo": "Mehr_Iran" },
   { "bin": "628023", "name": "بانک مسکن", "logo": "Maskan" },
-  { "bin": "581874", "name": "بانک ایران ونزوئلا", "logo": "Iran_Venezuela" },
+  { "bin": "581874", "name": "بانک ایران و ونزوئلا", "logo": "Iran_Venezuela" },
   { "bin": "610433", "name": "بانک ملت", "logo": "Mellat" },
   { "bin": "991975", "name": "بانک ملت", "logo": "Mellat" },
   { "bin": "603799", "name": "بانک ملی ایران", "logo": "Melli" },
@@ -38,7 +38,6 @@
   { "bin": "505416", "name": "بانک گردشگری", "logo": "Gardeshgari" },
   { "bin": "62198618", "name": "بلوبانک", "logo": "Blu" },
   { "bin": "62198619", "name": "بلوبانک", "logo": "Blu" },
-  { "bin": "628157", "name": "مؤسسه اعتباری توسعه", "logo": "Tosee_Credit" },
   { "bin": "606256", "name": "مؤسسه اعتباری ملل", "logo": "Melal" },
   { "bin": "50222915", "name": "ویپاد | زیپاد", "logo": "Pasargad" },
   { "bin": "627760", "name": "پست بانک ایران", "logo": "Postbank" }
