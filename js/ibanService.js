@@ -1,3 +1,4 @@
+// اصلاح‌شده: جلوگیری از تکرار و اعتبارسنجی درست شماره شبا
 const input = document.getElementById("ibanInput");
 const resultBox = document.getElementById("resultBox");
 const validationBox = document.getElementById("ibanValidationBox");
@@ -17,14 +18,19 @@ fetch("./data/iban-data.json")
 
 // رویداد برای هندل کردن ورودی
 input.addEventListener("input", (e) => {
-  const value = e.target.value
+  let value = e.target.value
     .toUpperCase()
     .replace(/\s+/g, "")
     .replace(/[^A-Z0-9]/g, "");
 
-  e.target.value = "IR" + value.slice(2); // همیشه با IR شروع شود
+  if (!value.startsWith("IR")) {
+    value = "IR" + value.replace(/[^0-9]/g, "");
+  } else {
+    value = "IR" + value.slice(2).replace(/[^0-9]/g, "");
+  }
+  e.target.value = value;
 
-  const currentIban = e.target.value;
+  const currentIban = value;
 
   if (currentIban.length >= 7) {
     const bankCode = currentIban.substring(4, 7);
@@ -44,21 +50,30 @@ input.addEventListener("input", (e) => {
     clearResult();
   }
 
-  // اعتبارسنجی فقط وقتی کامل وارد شده
   if (currentIban.length === 26 && /^IR\d{24}$/.test(currentIban)) {
     validateIban(currentIban);
-  } else {
+  } else if (currentIban.length > 2) {
     showValidation("برای اعتبارسنجی شماره شبا را کامل وارد کنید", "warning");
+  } else {
+    clearValidation();
   }
 });
 
 // رویداد برای paste کردن
 input.addEventListener("paste", (e) => {
-  let pastedValue = e.clipboardData.getData("text");
+  e.preventDefault();
+  let pastedValue = e.clipboardData
+    .getData("text")
+    .toUpperCase()
+    .replace(/\s+/g, "")
+    .replace(/[^A-Z0-9]/g, "");
+
   if (pastedValue.startsWith("IR")) {
     pastedValue = pastedValue.slice(2);
   }
+  pastedValue = pastedValue.replace(/[^0-9]/g, "");
   input.value = "IR" + pastedValue;
+  input.dispatchEvent(new Event("input"));
 });
 
 // تابع نمایش نام بانک

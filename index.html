@@ -14,9 +14,7 @@
         font-weight: 100 900;
       }
 
-      *,
-      *::before,
-      *::after {
+      * {
         font-family: "Vazirmatn", sans-serif !important;
         box-sizing: border-box;
       }
@@ -82,7 +80,7 @@
         color: #023e8a;
       }
 
-      /* 📱 بهینه‌سازی برای موبایل */
+      /* 📱 Responsive */
       @media (max-width: 480px) {
         main {
           padding: 1rem;
@@ -111,8 +109,16 @@
       </ul>
     </main>
 
-    <footer>
-      <p>Shetab - Ver 1.0.1</p>
-    </footer>
+    <!-- جایگاه فوتر -->
+    <div id="footer-placeholder"></div>
+
+    <!-- بارگذاری فوتر -->
+    <script>
+      fetch("footer.html")
+        .then((res) => res.text())
+        .then((data) => {
+          document.getElementById("footer-placeholder").innerHTML = data;
+        });
+    </script>
   </body>
 </html>
